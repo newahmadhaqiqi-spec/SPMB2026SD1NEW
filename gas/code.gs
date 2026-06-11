@@ -1,5 +1,5 @@
 /**
- * Google Apps Script Backend for PPDB SD
+ * Google Apps Script Backend for SPMB SD
  * Deploy as a Web App:
  * 1. Click "Deploy" -> "New deployment"
  * 2. Select type: "Web app"
@@ -11,16 +11,23 @@
 const SHEET_NAME = "Data Pendaftar";
 const ADMIN_SHEET_NAME = "Admin";
 const SETTINGS_SHEET_NAME = "Pengaturan";
-const FOLDER_NAME = "PPDB SD";
+const FOLDER_NAME = "SPMB SD";
 
 const DEFAULT_FORM_FIELDS = [
+  { id: "Jalur Pendaftaran", label: "Jalur Pendaftaran", type: "select", options: ["Domisili", "Afirmasi", "Mutasi"], required: true },
   { id: "Nama Lengkap", label: "Nama Lengkap", type: "text", required: true },
-  { id: "NIK", label: "NIK", type: "text", required: true },
+  { id: "NIK", label: "NIK", type: "number", maxLength: 16, pattern: "[0-9]*", required: true },
   { id: "Tempat Lahir", label: "Tempat Lahir", type: "text", required: true },
   { id: "Tanggal Lahir", label: "Tanggal Lahir", type: "date", required: true },
   { id: "Jenis Kelamin", label: "Jenis Kelamin", type: "select", options: ["Laki-laki", "Perempuan"], required: true },
+  { id: "Agama", label: "Agama", type: "select", options: ["Islam", "Kristen"], required: true },
   { id: "Alamat", label: "Alamat Lengkap", type: "textarea", required: true },
-  { id: "Nama Orang Tua", label: "Nama Orang Tua/Wali", type: "text", required: true },
+  { id: "Nama Ayah", label: "Nama Ayah", type: "text", required: true },
+  { id: "NIK Ayah", label: "NIK Ayah", type: "number", maxLength: 16, pattern: "[0-9]*", required: true },
+  { id: "Tanggal Lahir Ayah", label: "Tanggal Lahir Ayah", type: "date", required: true },
+  { id: "Nama Ibu", label: "Nama Ibu", type: "text", required: true },
+  { id: "NIK Ibu", label: "NIK Ibu", type: "number", maxLength: 16, pattern: "[0-9]*", required: true },
+  { id: "Tanggal Lahir Ibu", label: "Tanggal Lahir Ibu", type: "date", required: true },
   { id: "No HP", label: "No. WhatsApp Aktif", type: "text", required: true },
   { id: "Foto Siswa", label: "Pas Foto 3x4", type: "file", required: true },
   { id: "Kartu Keluarga", label: "Kartu Keluarga", type: "file", required: true },
@@ -28,11 +35,11 @@ const DEFAULT_FORM_FIELDS = [
 ];
 
 const DEFAULT_SETTINGS = {
-  namaSekolah: "SDN Harapan Bangsa",
+  namaSekolah: "SD NEGERI KRAMATWATU 1",
   alamat: "Jl. Pendidikan No. 123, Kota Pelajar, Indonesia 12345",
-  telepon: "(021) 1234-5678",
+  telepon: "+6281218010605 (Bu Atun) +6289660560744 (Pak Andri)",
   email: "info@sdnharapanbangsa.sch.id",
-  deskripsi: "Mencetak generasi penerus bangsa yang cerdas, berakhlak mulia, dan siap menghadapi tantangan masa depan dengan pendidikan berkualitas.",
+  deskripsi: "Mewujudkan peserta didik yang BERSIH (Berkarakter, Religius, Sehat, Inovatif, Hebat dalam prestasi).",
   statusPendaftaran: "Buka",
   formFields: JSON.stringify(DEFAULT_FORM_FIELDS)
 };
@@ -237,7 +244,7 @@ function handleRegistration(data) {
       }
     }
   }
-  const noPendaftaran = `PPDB-${year}-${String(nextId).padStart(3, '0')}`;
+  const noPendaftaran = `SPMB-${year}-${String(nextId).padStart(3, '0')}`;
   
   const folder = getOrCreateFolder(FOLDER_NAME);
   const rowData = new Array(headers.length).fill("");
