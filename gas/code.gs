@@ -32,6 +32,7 @@ const DEFAULT_FORM_FIELDS = [
   { id: "Foto Siswa", label: "Pas Foto 3x4", type: "file", required: true },
   { id: "Kartu Keluarga", label: "Kartu Keluarga", type: "file", required: true },
   { id: "Akta Kelahiran", label: "Akta Kelahiran", type: "file", required: true }
+  { id: "Ijazah", label: "Ijazah / SKHUN", type: "file", required: true }
 ];
 
 const DEFAULT_SETTINGS = {
