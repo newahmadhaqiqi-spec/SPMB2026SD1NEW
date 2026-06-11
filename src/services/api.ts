@@ -104,7 +104,6 @@ const getInitialMockSettings = (): AppSettings => {
       { id: "Foto Siswa", label: "Pas Foto 3x4", type: "file", required: true },
       { id: "Kartu Keluarga", label: "Kartu Keluarga", type: "file", required: true },
       { id: "Akta Kelahiran", label: "Akta Kelahiran", type: "file", required: true }
-      { id: "Ijazah", label: "Ijazah / SKHUN", type: "file", required: true }
     ],
     panduanJudul: "Panduan Pendaftaran SPMB",
     panduanDeskripsi: "Persiapkan dokumen berikut sebelum mulai mengisi formulir pendaftaran.",
